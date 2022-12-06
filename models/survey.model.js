@@ -46,11 +46,25 @@ class SurveyModel extends Model {
 
 	// supply the logic for each function:
 	generateCaptcha(){
-		return ""; 
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+        var length = 6;
+        if (!length) {
+            length = Math.floor(Math.random() * chars.length);
+        }
+        var str = '';
+        for (var i = 0; i < length; i++) {
+            str += chars[Math.floor(Math.random() * chars.length)];
+        }
+        this.captcha = str;
 	}
 
 	verifyCaptchaInput(input){
-		return ""; 
+        if(input === this.captcha){
+            return "Success! Captcha input matched."
+        } else {
+            return "Error! Captcha input doesn't matched."; 
+        }
+		
 	}
 }
 
